@@ -9,22 +9,17 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
 public class Consumer {
-
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {		
 		ConnectionFactory factory = new ConnectionFactory();
 		Connection connection;
 		try {
 			connection = factory.newConnection();
-			Channel channel = connection.createChannel();
-			
+			Channel channel = connection.createChannel();			
 			DeliverCallback deliverCallback = (consumerTag, delivery) -> {
 				String message = new String(delivery.getBody());
 				 System.out.println(message);
-			};
-			
-			channel.basicConsume("fila1", true, deliverCallback, consumerTag -> {} );
-			
+			};			
+			channel.basicConsume("fila1", true, deliverCallback, consumerTag -> {} );			
 		} catch (IOException | TimeoutException e) {
 			e.printStackTrace();
 		}
